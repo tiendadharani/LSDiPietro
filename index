@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Universo Dharani - Tienda</title>
+  <title>LS Di Pietro - Distribuidora</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 
@@ -1919,7 +1919,7 @@ scroll-snap-align: start;
 <div class="menu-footer-mobile">
 
   <div class="menu-footer-texto">
-    <div>Universo Dharani®</div>
+    <div>LS Di Pietro®</div>
     <div>
       Diseñado con 
       <span class="corazon">♡</span> 
@@ -1927,7 +1927,7 @@ scroll-snap-align: start;
     </div>
   </div>
 
-  <a href="https://instagram.com/universodharani"
+  <a href="https://instagram.com/lsdipietro"
      target="_blank"
      class="menu-footer-instagram">
 
@@ -2476,8 +2476,8 @@ function enviarWhatsApp() {
   }
 
   let mensaje =
-  "Hola Fer, te envío mi pedido:\n\n" +
-  "Universo Dharani – Almacén Natural\n\n" +
+  "Hola, te envío mi pedido:\n\n" +
+  "LS Di Pietro - Distribuidora\n\n" +
   "Nombre: " + nombre + "\n" +
   "Entrega: " + entrega + "\n";
 
@@ -2513,7 +2513,7 @@ carrito.forEach(item => {
 mensaje +=
   "\nTotal: $" + totalFinal +
   "\n\nGracias por tu compra.\n" +
-  "Universo Dharani";
+  "LS Di Pietro";
 
 
 
@@ -3619,13 +3619,13 @@ function toggleSubSubmenu(e, elemento) {
 <footer class="footer-desktop">
   <div class="footer-contenido">
     <div class="footer-izquierda">
-      © Universo Dharani® <span id="anio"></span> |
+      © LS Di Pietro® <span id="anio"></span> |
       Diseñado con <span class="corazon">♡</span> por M. Fernanda Muñoz
     </div>
 	  
      
     <div class="footer-derecha">
-      <a href="https://instagram.com/universodharani" target="_blank" aria-label="Instagram Universo Dharani">
+      <a href="https://instagram.com/lsdipietro" target="_blank" aria-label="Instagram LS Di Pietro">
         <svg viewBox="0 0 24 24" fill="none" stroke="#3f6b5a" stroke-width="1.8">
           <rect x="3" y="3" width="18" height="18" rx="5"></rect>
           <circle cx="12" cy="12" r="4"></circle>
