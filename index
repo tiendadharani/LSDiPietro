@@ -1837,7 +1837,7 @@ scroll-snap-align: start;
     <button class="menu-btn" onclick="toggleMenu()">☰</button>
 
     <!-- Logo -->
-    <img src="img/logo/logo1.png" class="logo" onclick="volverAlInicio()" style="cursor:pointer;">
+    <img src="imag/LS Distribuidora.png" class="logo" onclick="volverAlInicio()" style="cursor:pointer;">
 
     <!-- Buscador desktop -->
     <div class="buscador buscador-desktop">
