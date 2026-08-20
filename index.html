@@ -1280,112 +1280,169 @@
     }
 
     function crearTarjetaProducto(producto) {
-      const tarjeta = document.createElement("div");
-      tarjeta.className = "tarjeta-producto";
+  const tarjeta = document.createElement("div");
+  tarjeta.className = "tarjeta-producto";
 
-      tarjeta.innerHTML = `
-        <h3 class="nombre-producto">${producto.nombre}</h3>
+  const tieneVariasOpciones = producto.opciones.length > 1;
 
-        <div class="producto-imagen-container">
-          <img
-            src="${producto.imagen}"
-            class="producto-imagen"
-            alt="${producto.nombre}"
-          >
-        </div>
+  tarjeta.innerHTML = `
+    <h3 class="nombre-producto">${producto.nombre}</h3>
 
-        <p class="descripcion">
-          ${producto.descripcion}
-        </p>
+    <div class="producto-imagen-container">
+      <img
+        src="${producto.imagen || ""}"
+        class="producto-imagen"
+        alt="${producto.nombre}"
+        onerror="this.style.display='none'"
+      >
+    </div>
 
-        <select class="selector-opciones">
-          ${producto.opciones.map(op => `
-            <option value="${op.precio}" data-peso="${op.peso}">
-              ${op.peso}
-            </option>
-          `).join("")}
-        </select>
+    <p class="descripcion">
+      ${producto.descripcion}
+    </p>
 
-        <div class="precio">
-          $<span class="precio-valor">${producto.opciones[0]?.precio ?? "SIN STOCK"}</span>
-        </div>
-
-        <div class="footer-compra">
-
-          <div class="cantidad-control">
-            <button class="cantidad-btn menos" type="button">−</button>
-            <span class="cantidad-valor">1</span>
-            <button class="cantidad-btn mas" type="button">+</button>
-          </div>
-
-          <button class="btn-agregar" type="button" aria-label="Agregar al carrito">
-            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
-              <circle cx="9" cy="21" r="1"></circle>
-              <circle cx="20" cy="21" r="1"></circle>
-              <path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h7.8a2 2 0 0 0 2-1.6L23 6H6"></path>
-            </svg>
-          </button>
-
-        </div>
-      `;
-
-      let precioActual = Number(producto.opciones[0]?.precio || 0);
-      let opcionActual = producto.opciones[0]?.peso || "";
-      let cantidad = 1;
-
-      const selector = tarjeta.querySelector(".selector-opciones");
-      const precioSpan = tarjeta.querySelector(".precio-valor");
-      const cantidadSpan = tarjeta.querySelector(".cantidad-valor");
-
-      selector.addEventListener("change", () => {
-        const opcion = selector.options[selector.selectedIndex];
-
-        precioActual = Number(opcion.value);
-        opcionActual = opcion.dataset.peso;
-        precioSpan.textContent = precioActual;
-      });
-
-      tarjeta.querySelector(".mas").addEventListener("click", () => {
-        cantidad++;
-        cantidadSpan.textContent = cantidad;
-      });
-
-      tarjeta.querySelector(".menos").addEventListener("click", () => {
-        if (cantidad > 1) {
-          cantidad--;
-          cantidadSpan.textContent = cantidad;
-        }
-      });
-
-      tarjeta.querySelector(".btn-agregar").addEventListener("click", () => {
-        if (!pedidosAbiertos()) {
-          actualizarEstadoPedidos();
-          mostrarToast("⏰ Los pedidos online están cerrados");
-          return;
-        }
-
-        const idCarrito = producto.id + "-" + opcionActual;
-        const existente = carrito.find(p => p.id === idCarrito);
-
-        if (existente) {
-          existente.cantidad += cantidad;
-        } else {
-          carrito.push({
-            id: idCarrito,
-            productoId: producto.id,
-            nombre: `${producto.nombre} (${opcionActual})`,
-            precio: precioActual,
-            cantidad
-          });
-        }
-
-        mostrarCarrito();
-        guardarCarrito();
-        mostrarToast("🛒 Promo agregada");
-      });
-
-      return tarjeta;
+    ${
+      tieneVariasOpciones
+        ? `
+          <select class="selector-opciones">
+            ${producto.opciones.map(op => `
+              <option value="${op.precio}" data-peso="${op.peso}">
+                ${op.peso}
+              </option>
+            `).join("")}
+          </select>
+        `
+        : ""
     }
+
+    <div class="precio">
+      $<span class="precio-valor">
+        ${producto.opciones[0]?.precio ?? "SIN STOCK"}
+      </span>
+    </div>
+
+    <div class="footer-compra">
+
+      <div class="cantidad-control">
+        <button class="cantidad-btn menos" type="button">−</button>
+
+        <span class="cantidad-valor">1</span>
+
+        <button class="cantidad-btn mas" type="button">+</button>
+      </div>
+
+      <button
+        class="btn-agregar"
+        type="button"
+        aria-label="Agregar al carrito"
+      >
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="white"
+          stroke-width="2"
+        >
+          <circle cx="9" cy="21" r="1"></circle>
+          <circle cx="20" cy="21" r="1"></circle>
+          <path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h7.8a2 2 0 0 0 2-1.6L23 6H6"></path>
+        </svg>
+      </button>
+
+    </div>
+  `;
+
+  let precioActual = Number(producto.opciones[0]?.precio || 0);
+  let opcionActual = producto.opciones[0]?.peso || "Promo";
+  let cantidad = 1;
+
+  const selector = tarjeta.querySelector(".selector-opciones");
+  const precioSpan = tarjeta.querySelector(".precio-valor");
+  const cantidadSpan = tarjeta.querySelector(".cantidad-valor");
+
+  // =====================================================
+  // CAMBIO DE OPCIÓN
+  // =====================================================
+
+  if (selector) {
+    selector.addEventListener("change", () => {
+      const opcion = selector.options[selector.selectedIndex];
+
+      precioActual = Number(opcion.value);
+      opcionActual = opcion.dataset.peso;
+
+      precioSpan.textContent = precioActual;
+    });
+  }
+
+  // =====================================================
+  // SUMAR
+  // =====================================================
+
+  tarjeta.querySelector(".mas").addEventListener("click", () => {
+    cantidad++;
+
+    cantidadSpan.textContent = cantidad;
+  });
+
+  // =====================================================
+  // RESTAR
+  // =====================================================
+
+  tarjeta.querySelector(".menos").addEventListener("click", () => {
+
+    if (cantidad > 1) {
+      cantidad--;
+
+      cantidadSpan.textContent = cantidad;
+    }
+
+  });
+
+  // =====================================================
+  // AGREGAR AL CARRITO
+  // =====================================================
+
+  tarjeta.querySelector(".btn-agregar").addEventListener("click", () => {
+
+    if (!pedidosAbiertos()) {
+      actualizarEstadoPedidos();
+
+      mostrarToast("⏰ Los pedidos online están cerrados");
+
+      return;
+    }
+
+    const idCarrito = producto.id + "-" + opcionActual;
+
+    const existente = carrito.find(
+      p => p.id === idCarrito
+    );
+
+    if (existente) {
+
+      existente.cantidad += cantidad;
+
+    } else {
+
+      carrito.push({
+        id: idCarrito,
+        productoId: producto.id,
+        nombre: `${producto.nombre} (${opcionActual})`,
+        precio: precioActual,
+        cantidad
+      });
+
+    }
+
+    mostrarCarrito();
+
+    guardarCarrito();
+
+    mostrarToast("🛒 Promo agregada");
+  });
+
+  return tarjeta;
+}
 
     /* =========================================================
        BUSCADOR
