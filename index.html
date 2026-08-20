@@ -1091,20 +1091,24 @@
     }
 
     function pedidosAbiertos() {
-      if (!esDiaDeAtencion()) return false;
 
-      const { minutos } = obtenerHoraActual();
+  // 🧪 MODO PRUEBA — permite realizar pedidos fuera de horario
+  return true;
 
-      const manana =
-        minutos >= CONFIG.pedidos.mananaInicio &&
-        minutos < CONFIG.pedidos.mananaFin;
+  /*
+  const { minutos } = obtenerHoraActual();
 
-      const tarde =
-        minutos >= CONFIG.pedidos.tardeInicio &&
-        minutos < CONFIG.pedidos.tardeFin;
+  const manana =
+    minutos >= CONFIG.pedidos.mananaInicio &&
+    minutos < CONFIG.pedidos.mananaFin;
 
-      return manana || tarde;
-    }
+  const tarde =
+    minutos >= CONFIG.pedidos.tardeInicio &&
+    minutos < CONFIG.pedidos.tardeFin;
+
+  return manana || tarde;
+  */
+}
 
     function estaAbiertoElLocal() {
       if (!esDiaDeAtencion()) return false;
