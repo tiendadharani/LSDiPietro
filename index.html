@@ -1172,65 +1172,93 @@
     ========================================================= */
 
     async function cargarProductosDesdeCSV() {
-      try {
-        const response = await fetch("data/productos.csv");
+  try {
+    const response = await fetch("data/productos.csv");
 
-        if (!response.ok) {
-          throw new Error("No se encontró data/productos.csv");
+    if (!response.ok) {
+      throw new Error("No se encontró data/productos.csv");
+    }
+
+    const data = await response.text();
+
+    const resultado = Papa.parse(data, {
+      header: true,
+      skipEmptyLines: true
+    });
+
+    productos = resultado.data
+      .map(fila => {
+
+        const opciones = [];
+
+        // =====================================================
+        // PROMO SIMPLE
+        // Si tiene precio_1, usamos ese precio directamente.
+        // No necesita una opción/peso.
+        // =====================================================
+
+        if (fila.precio_1) {
+          opciones.push({
+            peso: fila.opcion_1?.trim() || "Promo",
+            precio: Number(fila.precio_1),
+            imagen: fila.imagen_1?.trim()
+              ? "imag/" + fila.imagen_1.trim()
+              : null
+          });
         }
 
-        const data = await response.text();
+        // =====================================================
+        // OPCIONES ADICIONALES
+        // Se mantienen por si alguna promo las necesita.
+        // =====================================================
 
-        const resultado = Papa.parse(data, {
-          header: true,
-          skipEmptyLines: true
-        });
+        for (let i = 2; i <= 50; i++) {
+          const opcion = fila["opcion_" + i];
+          const precio = fila["precio_" + i];
+          const imagen = fila["imagen_" + i];
 
-        productos = resultado.data
-          .map(fila => {
-            const opciones = [];
+          if (!opcion || !precio) continue;
 
-            for (let i = 1; i <= 50; i++) {
-              const opcion = fila["opcion_" + i];
-              const precio = fila["precio_" + i];
-              const imagen = fila["imagen_" + i];
+          opciones.push({
+            peso: opcion.trim(),
+            precio: Number(precio),
+            imagen: imagen?.trim()
+              ? "imag/" + imagen.trim()
+              : null
+          });
+        }
 
-              if (!opcion) break;
+        // Si no tiene ningún precio, no cargamos el producto.
+        if (opciones.length === 0) return null;
 
-              opciones.push({
-                peso: opcion.trim(),
-                precio: Number(precio),
-                imagen: imagen
-                  ? "imagenes/" + imagen.trim()
-                  : null
-              });
-            }
+        return {
+          id: fila.id?.trim(),
+          nombre: fila.nombre?.trim(),
+          categoria: "promos",
+          descripcion: fila.descripcion_corta?.trim() || "",
+          descripcionLarga: fila.descripcion_larga?.trim() || "",
 
-            if (opciones.length === 0) return null;
+          imagen: fila.imagen?.trim()
+            ? "imag/" + fila.imagen.trim()
+            : null,
 
-            return {
-              id: fila.id?.trim(),
-              nombre: fila.nombre?.trim(),
-              categoria: "promos",
-              descripcion: fila.descripcion_corta?.trim() || "",
-              descripcionLarga: fila.descripcion_larga?.trim() || "",
-              imagen: "imagenes/" + fila.imagen?.trim(),
-              opciones
-            };
-          })
-          .filter(Boolean);
+          opciones
+        };
+      })
+      .filter(Boolean);
 
-        renderProductos();
-      } catch (error) {
-        console.error(error);
+    renderProductos();
 
-        document.getElementById("lista-promos").innerHTML = `
-          <div class="sin-productos">
-            Todavía no hay promociones cargadas.
-          </div>
-        `;
-      }
-    }
+  } catch (error) {
+    console.error(error);
+
+    document.getElementById("lista-promos").innerHTML = `
+      <div class="sin-productos">
+        Todavía no hay promociones cargadas.
+      </div>
+    `;
+  }
+}
 
     function renderProductos() {
       const contenedor = document.getElementById("lista-promos");
