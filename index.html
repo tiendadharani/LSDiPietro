@@ -828,6 +828,37 @@
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
+ /* =========================================================
+   BANNER INFORMATIVO
+========================================================= */
+
+.banner-informativo {
+  width: 100%;
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+.banner-informativo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 18px;
+}   
+
+@media (max-width: 768px) {
+  .banner-informativo {
+    margin: 15px auto;
+    padding: 0 12px;
+  }
+
+  .banner-informativo img {
+    border-radius: 14px;
+  }
+}
+    
   </style>
 </head>
 
@@ -869,6 +900,12 @@
     <div class="estado-pedidos">
       <div id="estado-pedidos" class="estado"></div>
     </div>
+
+  <!-- Banner informativo -->
+  <div class="banner-informativo">
+    <img src="imag/banner.png" alt="Horarios de atención y pedidos online">
+  </div>
+    
   </header>
 
   <main>
