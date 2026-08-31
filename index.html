@@ -1208,11 +1208,10 @@
     function obtenerMensajeRetiro() {
       const { minutos } = obtenerHoraActual();
 
-      if (minutos >= CONFIG.pedidos.mananaInicio &&
+     if (minutos >= CONFIG.pedidos.mananaInicio &&
           minutos < CONFIG.pedidos.mananaFin) {
-        return "🏪 Podés retirar tu pedido por nuestro local hoy hasta las <strong>13:20 hs.</strong>";
-      }
-
+        return "🏪 Podés retirar tu pedido por nuestro local hoy hasta las <strong>13:20 hs.</strong> o de <strong>18:00 a 21:50 hs.</strong>";
+    }
       if (minutos >= CONFIG.pedidos.tardeInicio &&
           minutos < CONFIG.pedidos.tardeFin) {
         return "🏪 Podés retirar tu pedido por nuestro local hoy hasta las <strong>21:50 hs.</strong>";
