@@ -2220,6 +2220,8 @@ function toggleSubmenu(event) {
       cargarCarrito();
       actualizarEstadoPedidos();
 
+      mostrarPromociones();
+
       document.getElementById("buscador").addEventListener("input", event => {
         buscarProductos(event.target.value);
       });
