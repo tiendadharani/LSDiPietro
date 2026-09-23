@@ -1640,20 +1640,37 @@
 }
 
    function renderProductos() {
-  const contenedor = document.getElementById("lista-productos");
-  contenedor.innerHTML = "";
+  const listas = {
+    promos: document.getElementById("lista-promos"),
+    quesos: document.getElementById("lista-quesos"),
+    cerdo: document.getElementById("lista-cerdo"),
+    pollo: document.getElementById("lista-pollo")
+  };
+
+  // Limpiamos todas las categorías
+  Object.values(listas).forEach(lista => {
+    if (lista) lista.innerHTML = "";
+  });
 
   if (productos.length === 0) {
-    contenedor.innerHTML = `
-      <div class="sin-productos">
-        Todavía no hay productos cargados.
-      </div>
-    `;
+    if (listas.promos) {
+      listas.promos.innerHTML = `
+        <div class="sin-productos">
+          Todavía no hay productos cargados.
+        </div>
+      `;
+    }
     return;
   }
 
+  // Colocamos cada producto en su categoría
   productos.forEach(producto => {
-    contenedor.appendChild(crearTarjetaProducto(producto));
+    const categoria = producto.categoria?.toLowerCase().trim();
+    const lista = listas[categoria];
+
+    if (lista) {
+      lista.appendChild(crearTarjetaProducto(producto));
+    }
   });
 }
 
