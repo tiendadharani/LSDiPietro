@@ -1201,17 +1201,21 @@
   <div class="banner-informativo">
     <img src="imag/banner.png" alt="Horarios de atención y pedidos online">
   </div>
-    <section id="promos" class="seccion">
-      <h1 class="titulo-seccion">PROMOS</h1>
+   <section id="productos" class="seccion">
 
-      <div class="contenedor-productos">
-        <div id="lista-promos" class="bloque-productos">
-          <div class="sin-productos">
-            Cargando promociones...
-          </div>
-        </div>
+  <h1 class="titulo-seccion">PRODUCTOS</h1>
+
+  <div class="contenedor-productos">
+    <div id="lista-productos" class="bloque-productos">
+
+      <div class="sin-productos">
+        Cargando productos...
       </div>
-    </section>
+
+    </div>
+  </div>
+
+</section>
 
     <section id="resultados-busqueda" class="seccion">
       <button class="volver-promos" onclick="mostrarPromos()">
@@ -1578,7 +1582,7 @@
         return {
           id: fila.id?.trim(),
           nombre: fila.nombre?.trim(),
-          categoria: "promos",
+          categoria: fila.categoria?.trim() || "",
           descripcion: fila.descripcion_corta?.trim() || "",
           descripcionLarga: fila.descripcion_larga?.trim() || "",
 
@@ -1604,24 +1608,23 @@
   }
 }
 
-    function renderProductos() {
-      const contenedor = document.getElementById("lista-promos");
+   function renderProductos() {
+  const contenedor = document.getElementById("lista-productos");
+  contenedor.innerHTML = "";
 
-      contenedor.innerHTML = "";
+  if (productos.length === 0) {
+    contenedor.innerHTML = `
+      <div class="sin-productos">
+        Todavía no hay productos cargados.
+      </div>
+    `;
+    return;
+  }
 
-      if (productos.length === 0) {
-        contenedor.innerHTML = `
-          <div class="sin-productos">
-            Todavía no hay promociones cargadas.
-          </div>
-        `;
-        return;
-      }
-
-      productos.forEach(producto => {
-        contenedor.appendChild(crearTarjetaProducto(producto));
-      });
-    }
+  productos.forEach(producto => {
+    contenedor.appendChild(crearTarjetaProducto(producto));
+  });
+}
 
     function crearTarjetaProducto(producto) {
   const tarjeta = document.createElement("div");
