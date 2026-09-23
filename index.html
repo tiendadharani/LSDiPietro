@@ -1058,6 +1058,48 @@
 
     </div>
 
+        </div>
+
+    <!-- =========================
+         MENÚ DE NAVEGACIÓN
+    ========================== -->
+
+    <nav class="menu" id="menu">
+
+      <a href="#" onclick="mostrarPromos(); cerrarMenu(); return false;">
+        Inicio
+      </a>
+
+      <div class="submenu">
+
+        <a href="#" class="submenu-btn" onclick="toggleSubmenu(event)">
+          Productos ▾
+        </a>
+
+        <div class="submenu-lista">
+
+          <a href="#" onclick="mostrarCategoria('quesos'); return false;">
+            Quesos
+          </a>
+
+          <a href="#" onclick="mostrarCategoria('cerdo'); return false;">
+            Cerdo
+          </a>
+
+          <a href="#" onclick="mostrarCategoria('pollo'); return false;">
+            Pollo
+          </a>
+
+        </div>
+
+      </div>
+
+      <a href="#" onclick="mostrarPromos(); cerrarMenu(); return false;">
+        Promociones
+      </a>
+
+    </nav>
+
     <div class="estado-pedidos">
       <div id="estado-pedidos" class="estado"></div>
     </div>
