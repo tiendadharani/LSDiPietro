@@ -1028,7 +1028,14 @@
   <header class="header-principal">
     <div class="header-top">
 
-      <button class="menu-btn" type="button" aria-label="Menú">☰</button>
+      <button
+  class="menu-btn"
+  type="button"
+  aria-label="Menú"
+  onclick="toggleMenu()"
+>
+  ☰
+</button>
 
       <img
         src="imag/LS Distribuidora.png"
@@ -2002,6 +2009,43 @@ ${
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
+    /* =========================================================
+   MENÚ DE NAVEGACIÓN
+========================================================= */
+
+function toggleMenu() {
+  const menu = document.getElementById("menu");
+
+  if (menu) {
+    menu.classList.toggle("activo");
+  }
+}
+
+
+function cerrarMenu() {
+  const menu = document.getElementById("menu");
+
+  if (menu) {
+    menu.classList.remove("activo");
+  }
+
+  document.querySelectorAll(".submenu").forEach(submenu => {
+    submenu.classList.remove("activo");
+  });
+}
+
+
+function toggleSubmenu(event) {
+  event.preventDefault();
+  event.stopPropagation();
+
+  const submenu = event.currentTarget.closest(".submenu");
+
+  if (submenu) {
+    submenu.classList.toggle("activo");
+  }
+}
+    
     function mostrarToast(mensaje) {
       const toast = document.getElementById("toast");
 
