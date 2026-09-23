@@ -2155,6 +2155,54 @@ ${
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
+
+    function mostrarCategoria(categoria) {
+  const categoriasValidas = [
+    "promociones",
+    "quesos",
+    "cerdo",
+    "pollo"
+  ];
+
+  if (!categoriasValidas.includes(categoria)) {
+    return;
+  }
+
+  // Ocultamos todas las categorías
+  categoriasValidas.forEach(nombre => {
+    const seccion = document.getElementById("seccion-" + nombre);
+
+    if (seccion) {
+      seccion.style.display = "none";
+    }
+  });
+
+  // Mostramos solamente la categoría elegida
+  const seccionElegida =
+    document.getElementById("seccion-" + categoria);
+
+  if (!seccionElegida) {
+    return;
+  }
+
+  seccionElegida.style.display = "block";
+
+  // Ocultamos otras vistas
+  document.getElementById("resultados-busqueda").classList.remove("visible");
+  document.getElementById("checkout").classList.remove("visible");
+  document.getElementById("confirmacion").classList.remove("visible");
+
+  // Cerramos el menú
+  cerrarMenu();
+
+  // Volvemos arriba
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+}
+
+    
     /* =========================================================
    MENÚ DE NAVEGACIÓN
 ========================================================= */
