@@ -2130,16 +2130,30 @@ ${
     ========================================================= */
 
     function mostrarPromociones() {
-      document.getElementById("promociones").style.display = "block";
-      document.getElementById("resultados-busqueda").classList.remove("visible");
-      document.getElementById("checkout").classList.remove("visible");
-      document.getElementById("confirmacion").classList.remove("visible");
+  const secciones = [
+    "seccion-promociones",
+    "seccion-quesos",
+    "seccion-cerdo",
+    "seccion-pollo"
+  ];
 
-      const buscador = document.getElementById("buscador");
-      if (buscador) buscador.value = "";
+  secciones.forEach(id => {
+    const seccion = document.getElementById(id);
+    if (seccion) seccion.style.display = "none";
+  });
 
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
+  const promociones = document.getElementById("seccion-promociones");
+  if (promociones) promociones.style.display = "block";
+
+  document.getElementById("resultados-busqueda").classList.remove("visible");
+  document.getElementById("checkout").classList.remove("visible");
+  document.getElementById("confirmacion").classList.remove("visible");
+
+  const buscador = document.getElementById("buscador");
+  if (buscador) buscador.value = "";
+
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
 
     /* =========================================================
    MENÚ DE NAVEGACIÓN
