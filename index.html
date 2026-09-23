@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LS Di Pietro - Promos</title>
+  <title>LS Di Pietro - Promociones</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet">
 
@@ -582,7 +582,7 @@
       margin-top: 20px;
     }
 
-    .volver-promos {
+    .volver-promociones {
       border: none;
       background: none;
       color: var(--azul);
@@ -1122,7 +1122,7 @@
         src="imag/LS Distribuidora.png"
         class="logo"
         alt="LS Di Pietro - Distribuidora"
-        onclick="mostrarPromos()"
+        onclick="mostrarPromociones()"
       >
 
       <div class="buscador">
@@ -1154,7 +1154,7 @@
 
     <nav class="menu" id="menu">
 
-      <a href="#" onclick="mostrarPromos(); cerrarMenu(); return false;">
+      <a href="#" onclick="mostrarPromociones(); cerrarMenu(); return false;">
         Inicio
       </a>
 
@@ -1182,7 +1182,7 @@
 
       </div>
 
-      <a href="#" onclick="mostrarPromos(); cerrarMenu(); return false;">
+      <a href="#" onclick="mostrarPromociones(); cerrarMenu(); return false;">
         Promociones
       </a>
 
@@ -1204,11 +1204,11 @@
    <section id="productos" class="seccion">
 
   <!-- PROMOCIONES -->
-  <div class="categoria-productos" id="seccion-promos">
+  <div class="categoria-productos" id="seccion-promociones">
     <h1 class="titulo-seccion">PROMOCIONES</h1>
 
     <div class="contenedor-productos">
-      <div id="lista-promos" class="bloque-productos">
+      <div id="lista-promociones" class="bloque-productos">
       </div>
     </div>
   </div>
@@ -1249,8 +1249,8 @@
 </section>
 
     <section id="resultados-busqueda" class="seccion">
-      <button class="volver-promos" onclick="mostrarPromos()">
-        ← Volver a Promos
+      <button class="volver-promociones" onclick="mostrarPromociones()">
+        ← Volver a Promociones
       </button>
 
       <h2 class="titulo-seccion">Resultados de búsqueda</h2>
@@ -1304,8 +1304,8 @@
           Enviar pedido por WhatsApp
         </button>
 
-        <button class="btn-volver" onclick="mostrarPromos()">
-          ← Seguir viendo Promos
+        <button class="btn-volver" onclick="mostrarPromociones()">
+          ← Seguir viendo Promociones
         </button>
 
       </div>
@@ -1328,8 +1328,8 @@
           Recuerda enviarnos el comprobante de tu transferencia, una vez recibido tu pago se preparará tu pedido. Evitá demoras.
         </p>
 
-        <button class="btn-volver" onclick="mostrarPromos()">
-          Volver a ver las Promos
+        <button class="btn-volver" onclick="mostrarPromociones()">
+          Volver a ver las Promociones
         </button>
 
       </div>
@@ -1631,7 +1631,7 @@
   } catch (error) {
     console.error(error);
 
-    document.getElementById("lista-promos").innerHTML = `
+    document.getElementById("lista-promociones").innerHTML = `
       <div class="sin-productos">
         Todavía no hay promociones cargadas.
       </div>
@@ -1641,7 +1641,7 @@
 
    function renderProductos() {
   const listas = {
-    promos: document.getElementById("lista-promos"),
+    promociones: document.getElementById("lista-promociones"),
     quesos: document.getElementById("lista-quesos"),
     cerdo: document.getElementById("lista-cerdo"),
     pollo: document.getElementById("lista-pollo")
@@ -1653,8 +1653,8 @@
   });
 
   if (productos.length === 0) {
-    if (listas.promos) {
-      listas.promos.innerHTML = `
+    if (listas.promociones) {
+      listas.promociones.innerHTML = `
         <div class="sin-productos">
           Todavía no hay productos cargados.
         </div>
@@ -1853,7 +1853,7 @@ ${
       const lista = document.getElementById("lista-resultados");
 
       if (!termino) {
-        mostrarPromos();
+        mostrarPromociones();
         return;
       }
 
@@ -1876,7 +1876,7 @@ ${
         });
       }
 
-      document.getElementById("promos").style.display = "none";
+      document.getElementById("promociones").style.display = "none";
       document.getElementById("checkout").classList.remove("visible");
       document.getElementById("confirmacion").classList.remove("visible");
       resultados.classList.add("visible");
@@ -2030,7 +2030,7 @@ ${
 
       document.querySelector(".carrito-panel").classList.remove("abierto");
 
-      document.getElementById("promos").style.display = "none";
+      document.getElementById("promociones").style.display = "none";
       document.getElementById("resultados-busqueda").classList.remove("visible");
       document.getElementById("confirmacion").classList.remove("visible");
       document.getElementById("checkout").classList.add("visible");
@@ -2107,7 +2107,7 @@ ${
       window.open(url, "_blank");
 
       document.getElementById("checkout").classList.remove("visible");
-      document.getElementById("promos").style.display = "none";
+      document.getElementById("promociones").style.display = "none";
       document.getElementById("resultados-busqueda").classList.remove("visible");
 
       document.getElementById("mensaje-retiro").innerHTML =
@@ -2129,8 +2129,8 @@ ${
        NAVEGACIÓN
     ========================================================= */
 
-    function mostrarPromos() {
-      document.getElementById("promos").style.display = "block";
+    function mostrarPromociones() {
+      document.getElementById("promociones").style.display = "block";
       document.getElementById("resultados-busqueda").classList.remove("visible");
       document.getElementById("checkout").classList.remove("visible");
       document.getElementById("confirmacion").classList.remove("visible");
