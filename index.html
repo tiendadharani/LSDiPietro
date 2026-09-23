@@ -2244,6 +2244,21 @@ function toggleSubmenu(event) {
     submenu.classList.toggle("activo");
   }
 }
+
+document.addEventListener("click", event => {
+
+  const menu = document.getElementById("menu");
+  const botonMenu = document.querySelector(".menu-btn");
+
+  if (!menu || !menu.classList.contains("activo")) {
+    return;
+  }
+
+  if (!menu.contains(event.target) && !botonMenu.contains(event.target)) {
+    cerrarMenu();
+  }
+
+});
     
     function mostrarToast(mensaje) {
       const toast = document.getElementById("toast");
