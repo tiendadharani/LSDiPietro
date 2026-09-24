@@ -1605,7 +1605,7 @@
     const response = await fetch("data/producto.csv");
 
     if (!response.ok) {
-      throw new Error("No se encontró data/productos.csv");
+      throw new Error("No se encontró data/producto.csv");
     }
 
     const data = await response.text();
