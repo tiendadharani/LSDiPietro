@@ -788,6 +788,38 @@
       word-break: break-word;
     }
 
+    .alias {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: .5px;
+  word-break: break-word;
+}
+
+.alias-contenedor {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.btn-copiar-alias {
+  border: 1px solid var(--azul);
+  background: white;
+  color: var(--azul);
+  border-radius: 9px;
+  padding: 9px 13px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.btn-copiar-alias:hover {
+  background: var(--azul);
+  color: white;
+}
+
+    
     .transferencia p {
       margin-bottom: 0;
       color: #555;
@@ -1289,10 +1321,20 @@
         <div class="transferencia">
           <h3>💳 Pago por transferencia</h3>
 
-          <div>
-            <strong>Alias</strong>
-            <div class="alias" id="alias-transferencia">gdipietromunoz.mp</div>
-          </div>
+          <div class="alias-contenedor">
+        <div>
+          <strong>Alias</strong>
+          <div class="alias" id="alias-transferencia">gdipietromunoz.mp</div>
+        </div>
+      
+        <button
+          type="button"
+          class="btn-copiar-alias"
+          onclick="copiarAlias()"
+        >
+          📋 Copiar alias
+        </button>
+      </div>
 
           <p>
             Realizá la transferencia por el total de tu pedido y enviá
@@ -1400,8 +1442,7 @@
     const CONFIG = {
       whatsappPedidos: "5492622465782",
 
-      // Reemplazar cuando definan el alias definitivo.
-      aliasTransferencia: gdipietromunoz.mp,
+     aliasTransferencia: "gdipietromunoz.mp",
 
       // Horario de recepción de pedidos online.
       pedidos: {
@@ -2066,6 +2107,21 @@ ${
         "$" + calcularTotal();
     }
 
+async function copiarAlias() {
+  const alias = document
+    .getElementById("alias-transferencia")
+    .textContent
+    .trim();
+
+  try {
+    await navigator.clipboard.writeText(alias);
+    mostrarToast("📋 Alias copiado");
+  } catch (error) {
+    console.error("No se pudo copiar el alias:", error);
+    mostrarToast("No se pudo copiar el alias");
+  }
+}
+    
     function enviarWhatsApp() {
       if (!pedidosAbiertos()) {
         actualizarEstadoPedidos();
