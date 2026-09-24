@@ -1926,7 +1926,7 @@ ${
         });
       }
 
-      document.getElementById("promociones").style.display = "none";
+      document.getElementById("productos").style.display = "none";
       document.getElementById("checkout").classList.remove("visible");
       document.getElementById("confirmacion").classList.remove("visible");
       resultados.classList.add("visible");
@@ -2080,7 +2080,7 @@ ${
 
       document.querySelector(".carrito-panel").classList.remove("abierto");
 
-      document.getElementById("promociones").style.display = "none";
+      document.getElementById("productos").style.display = "none";
       document.getElementById("resultados-busqueda").classList.remove("visible");
       document.getElementById("confirmacion").classList.remove("visible");
       document.getElementById("checkout").classList.add("visible");
@@ -2309,13 +2309,24 @@ document.addEventListener("click", event => {
 
   const menu = document.getElementById("menu");
   const botonMenu = document.querySelector(".menu-btn");
+  const submenu = document.querySelector(".submenu");
 
-  if (!menu || !menu.classList.contains("activo")) {
-    return;
+  // Cierra el menú lateral mobile al tocar afuera
+  if (
+    menu &&
+    menu.classList.contains("activo") &&
+    !menu.contains(event.target) &&
+    (!botonMenu || !botonMenu.contains(event.target))
+  ) {
+    cerrarMenu();
   }
 
-  if (!menu.contains(event.target) && !botonMenu.contains(event.target)) {
-    cerrarMenu();
+  // Cierra el desplegable de Productos al tocar afuera
+  if (
+    submenu &&
+    !submenu.contains(event.target)
+  ) {
+    submenu.classList.remove("activo");
   }
 
 });
