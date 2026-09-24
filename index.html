@@ -1870,7 +1870,8 @@ ${
         productoId: producto.id,
         nombre: `${producto.nombre} (${opcionActual})`,
         precio: precioActual,
-        cantidad
+        cantidad,
+        imagen: producto.imagen
       });
 
     }
@@ -1948,8 +1949,8 @@ ${
         const subtotal = item.precio * item.cantidad;
         total += subtotal;
 
-        const producto = productos.find(p => p.id === item.productoId);
-        const imagen = producto ? producto.imagen : "";
+      const producto = productos.find(p => p.id === item.productoId);
+      const imagen = item.imagen || (producto ? producto.imagen : "");
 
         const li = document.createElement("li");
 
