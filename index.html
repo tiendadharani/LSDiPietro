@@ -1440,7 +1440,7 @@
     ========================================================= */
 
     const CONFIG = {
-      whatsappPedidos: "5492622465782",
+      whatsappPedidos: "5492622650240",
 
      aliasTransferencia: "gdipietromunoz.mp",
 
@@ -1505,24 +1505,22 @@
 
     function pedidosAbiertos() {
 
-  // 🧪 MODO PRUEBA — permite realizar pedidos fuera de horario
-  return true;
+      if (!esDiaDeAtencion()) return false;
+    
+      const { minutos } = obtenerHoraActual();
+    
+      const manana =
+        minutos >= CONFIG.pedidos.mananaInicio &&
+        minutos < CONFIG.pedidos.mananaFin;
+    
+      const tarde =
+        minutos >= CONFIG.pedidos.tardeInicio &&
+        minutos < CONFIG.pedidos.tardeFin;
+    
+      return manana || tarde;
+    }
 
-  /*
-  const { minutos } = obtenerHoraActual();
-
-  const manana =
-    minutos >= CONFIG.pedidos.mananaInicio &&
-    minutos < CONFIG.pedidos.mananaFin;
-
-  const tarde =
-    minutos >= CONFIG.pedidos.tardeInicio &&
-    minutos < CONFIG.pedidos.tardeFin;
-
-  return manana || tarde;
-  */
-}
-
+    
     function estaAbiertoElLocal() {
       if (!esDiaDeAtencion()) return false;
 
