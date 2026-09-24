@@ -1967,15 +1967,15 @@ ${
               </div>
 
               <div class="carrito-lateral-controles">
-                <button onclick="restarProducto(${index})">−</button>
+                <button onclick="event.stopPropagation(); restarProducto(${index})">−</button>
                 <span>${item.cantidad}</span>
-                <button onclick="sumarProducto(${index})">+</button>
+                <button onclick="event.stopPropagation(); sumarProducto(${index})">+</button>
               </div>
             </div>
 
             <div class="carrito-lateral-precio">
               $${subtotal}
-              <button onclick="eliminarProducto(${index})">✕</button>
+              <button onclick="event.stopPropagation(); eliminarProducto(${index})">✕</button>
             </div>
 
           </div>
