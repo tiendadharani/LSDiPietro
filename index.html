@@ -1546,39 +1546,59 @@
     }
 
     function actualizarEstadoPedidos() {
-      const estado = document.getElementById("estado-pedidos");
-      const boton = document.getElementById("btn-finalizar");
+  const estado = document.getElementById("estado-pedidos");
+  const boton = document.getElementById("btn-finalizar");
 
-      if (pedidosAbiertos()) {
-        estado.className = "estado abierto";
-        estado.innerHTML =
-          "🟢 <strong>Pedidos online abiertos.</strong> " +
-          "Podés realizar tu pedido y enviarlo por WhatsApp.";
-      } else if (estaAbiertoElLocal()) {
-        estado.className = "estado cerrado";
-        estado.innerHTML =
-          "🏪 <strong>Pedidos online cerrados.</strong> " +
-          "En este momento podés dirigirte directamente a nuestra distribuidora.";
-      } else {
-        estado.className = "estado cerrado";
-        estado.innerHTML =
-          "🔔 <strong>Pedidos online cerrados.</strong> " +
-          "Recibimos pedidos de lunes a sábado de " +
-          horaTexto(CONFIG.pedidos.mananaInicio) + " a " +
-          horaTexto(CONFIG.pedidos.mananaFin) + " hs y de " +
-          horaTexto(CONFIG.pedidos.tardeInicio) + " a " +
-          horaTexto(CONFIG.pedidos.tardeFin) + " hs. " +
-          "Podés acercarte a la distribuidora durante nuestro horario de atención.";
-      }
+  if (pedidosAbiertos()) {
+    estado.className = "estado abierto";
+    estado.innerHTML =
+      "🟢 <strong>Pedidos online abiertos.</strong> " +
+      "Podés realizar tu pedido y enviarlo por WhatsApp.";
 
-      if (boton) {
-        boton.disabled = !pedidosAbiertos();
-        boton.textContent = pedidosAbiertos()
-          ? "Finalizar pedido →"
-          : "Pedidos online cerrados";
-      }
+  } else {
+    const { minutos } = obtenerHoraActual();
+
+    if (
+      minutos >= CONFIG.pedidos.mananaFin &&
+      minutos < CONFIG.local.mananaFin
+    ) {
+      estado.className = "estado cerrado";
+      estado.innerHTML =
+        "🏪 <strong>Pedidos online cerrados.</strong> " +
+        "En este momento podés acercarte directamente a nuestra distribuidora. " +
+        "<strong>Tenés tiempo hasta las 13:20 hs.</strong>";
+
+    } else if (
+      minutos >= CONFIG.pedidos.tardeFin &&
+      minutos < CONFIG.local.tardeFin
+    ) {
+      estado.className = "estado cerrado";
+      estado.innerHTML =
+        "🏪 <strong>Pedidos online cerrados.</strong> " +
+        "En este momento podés acercarte directamente a nuestra distribuidora. " +
+        "<strong>Tenés tiempo hasta las 21:50 hs.</strong>";
+
+    } else {
+      estado.className = "estado cerrado";
+      estado.innerHTML =
+        "🔔 <strong>Pedidos online cerrados.</strong> " +
+        "Recibimos pedidos de lunes a sábado de " +
+        horaTexto(CONFIG.pedidos.mananaInicio) + " a " +
+        horaTexto(CONFIG.pedidos.mananaFin) + " hs y de " +
+        horaTexto(CONFIG.pedidos.tardeInicio) + " a " +
+        horaTexto(CONFIG.pedidos.tardeFin) + " hs. " +
+        "Podés acercarte a la distribuidora durante nuestro horario de atención, " +
+        "de lunes a sábado de 09:30 a 13:20 hs y de 18:00 a 21:50 hs.";
     }
+  }
 
+  if (boton) {
+    boton.disabled = !pedidosAbiertos();
+    boton.textContent = pedidosAbiertos()
+      ? "Finalizar pedido →"
+      : "Pedidos online cerrados";
+  }
+}
     function obtenerMensajeRetiro() {
       const { minutos } = obtenerHoraActual();
 
